@@ -1,0 +1,454 @@
+:root {
+  --ember: #ff6b1a;
+  --flame: #ffcc33;
+  --core: #fff8c4;
+  --deep: #0a0202;
+  --card-bg: rgba(14, 5, 5, 0.94);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Outfit", system-ui, sans-serif;
+  background: var(--deep);
+  color: #fff5e6;
+}
+
+.inferno {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 130% 90% at 50% 100%, rgba(255, 60, 0, 0.55) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 15% 95%, rgba(255, 100, 0, 0.4) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 50% at 85% 95%, rgba(255, 40, 0, 0.45) 0%, transparent 45%),
+    linear-gradient(185deg, #050102 0%, #1a0608 28%, #3a0c08 58%, #5c1208 100%);
+  animation: inferno-shift 8s ease-in-out infinite alternate;
+}
+
+@keyframes inferno-shift {
+  0% {
+    filter: brightness(0.92) saturate(1.05) hue-rotate(-4deg);
+  }
+  100% {
+    filter: brightness(1.1) saturate(1.25) hue-rotate(6deg);
+  }
+}
+
+.inferno__orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+.orb--1 {
+  width: min(55vw, 420px);
+  height: min(55vw, 420px);
+  bottom: -8%;
+  left: -5%;
+  background: radial-gradient(circle, #ff4000 0%, transparent 70%);
+  animation: orb-drift-a 5s ease-in-out infinite alternate;
+}
+
+.orb--2 {
+  width: min(45vw, 360px);
+  height: min(45vw, 360px);
+  bottom: 5%;
+  right: -8%;
+  background: radial-gradient(circle, #ff8800 0%, transparent 68%);
+  animation: orb-drift-b 6.5s ease-in-out infinite alternate;
+}
+
+.orb--3 {
+  width: min(70vw, 520px);
+  height: min(40vw, 300px);
+  bottom: -12%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, #ff2200 0%, transparent 65%);
+  animation: orb-drift-c 4.2s ease-in-out infinite alternate;
+}
+
+@keyframes orb-drift-a {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.42; }
+  100% { transform: translate(6%, -4%) scale(1.12); opacity: 0.58; }
+}
+
+@keyframes orb-drift-b {
+  0% { transform: translate(0, 0) scale(1.05); opacity: 0.38; }
+  100% { transform: translate(-8%, -6%) scale(0.95); opacity: 0.55; }
+}
+
+@keyframes orb-drift-c {
+  0% { transform: translate(-50%, 0) scaleX(1) scaleY(1); opacity: 0.48; }
+  100% { transform: translate(-48%, -5%) scaleX(1.08) scaleY(0.92); opacity: 0.62; }
+}
+
+.inferno__heat {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 70% at 50% 100%, rgba(255, 200, 80, 0.12) 0%, transparent 55%);
+  animation: heat-pulse 2.1s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes heat-pulse {
+  0%, 100% { opacity: 0.65; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.03); }
+}
+
+.flames {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 58%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flames--back {
+  height: 52%;
+  filter: blur(5px);
+  opacity: 0.75;
+  z-index: 0;
+}
+
+.flames--front {
+  z-index: 1;
+  height: 62%;
+}
+
+.flame {
+  position: absolute;
+  bottom: -18%;
+  transform-origin: 50% 100%;
+  border-radius: 50% 50% 22% 22% / 55% 55% 100% 100%;
+  mix-blend-mode: screen;
+  will-change: transform, opacity, filter;
+}
+
+.flame--back {
+  width: clamp(36px, 7vw, 88px);
+  height: clamp(100px, 22vh, 240px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 180, 80, 0.5) 0%,
+    #cc3300 40%,
+    rgba(120, 20, 0, 0.2) 85%,
+    transparent 100%
+  );
+  animation: flame-sway-back var(--dur, 1.4s) ease-in-out infinite alternate;
+}
+
+.flame--front {
+  width: clamp(44px, 9vw, 104px);
+  height: clamp(130px, 28vh, 300px);
+  background: linear-gradient(
+    180deg,
+    var(--core) 0%,
+    var(--flame) 14%,
+    var(--ember) 38%,
+    #d81800 68%,
+    transparent 100%
+  );
+  filter: blur(1.5px);
+  box-shadow:
+    0 -20px 40px -10px rgba(255, 200, 60, 0.35),
+    0 0 30px rgba(255, 80, 0, 0.25);
+  animation: flame-sway-front var(--dur, 1s) ease-in-out infinite alternate;
+}
+
+.flame--front.flame--wide {
+  scale: 1.15 0.95;
+}
+
+.flame--front.flame--thin {
+  scale: 0.88 1.05;
+}
+
+@keyframes flame-sway-back {
+  0% {
+    transform: scaleX(0.82) scaleY(0.9) skewX(-4deg) translateX(-2%);
+    opacity: 0.55;
+  }
+  33% {
+    transform: scaleX(1.05) scaleY(1.02) skewX(3deg) translateX(1%);
+    opacity: 0.72;
+  }
+  100% {
+    transform: scaleX(0.94) scaleY(0.96) skewX(-2deg) translateX(0);
+    opacity: 0.6;
+  }
+}
+
+@keyframes flame-sway-front {
+  0% {
+    transform: scaleX(0.88) scaleY(0.94) skewX(-5deg);
+    opacity: 0.78;
+    filter: blur(1.5px) brightness(0.95);
+  }
+  40% {
+    transform: scaleX(1.12) scaleY(1.08) skewX(4deg);
+    opacity: 0.98;
+    filter: blur(1px) brightness(1.08);
+  }
+  100% {
+    transform: scaleX(0.96) scaleY(1) skewX(-1deg);
+    opacity: 0.82;
+    filter: blur(2px) brightness(1);
+  }
+}
+
+.sparks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  animation: sparks-drift 3.2s linear infinite;
+}
+
+.sparks--a {
+  background-image:
+    radial-gradient(2px 2px at 8% 78%, rgba(255, 240, 180, 0.95), transparent),
+    radial-gradient(1px 1px at 22% 72%, rgba(255, 200, 100, 0.9), transparent),
+    radial-gradient(2px 2px at 41% 80%, rgba(255, 160, 60, 0.85), transparent),
+    radial-gradient(1px 1px at 58% 76%, rgba(255, 255, 220, 1), transparent),
+    radial-gradient(2px 2px at 76% 74%, rgba(255, 120, 40, 0.8), transparent),
+    radial-gradient(1px 1px at 92% 79%, rgba(255, 210, 120, 0.9), transparent);
+  background-size: 100% 100%;
+}
+
+.sparks--b {
+  opacity: 0.4;
+  animation-duration: 4.8s;
+  animation-direction: reverse;
+  background-image:
+    radial-gradient(1px 1px at 15% 85%, rgba(255, 255, 200, 0.8), transparent),
+    radial-gradient(2px 2px at 48% 88%, rgba(255, 180, 80, 0.75), transparent),
+    radial-gradient(1px 1px at 68% 82%, rgba(255, 100, 50, 0.7), transparent),
+    radial-gradient(2px 2px at 88% 86%, rgba(255, 220, 150, 0.85), transparent);
+  background-size: 100% 100%;
+}
+
+@keyframes sparks-drift {
+  0% { transform: translateY(12px) translateX(0); }
+  50% { transform: translateY(-18px) translateX(4px); }
+  100% { transform: translateY(-32px) translateX(-3px); }
+}
+
+.embers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ember {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff8cc, #ff6600 60%, transparent);
+  box-shadow: 0 0 8px 2px rgba(255, 140, 40, 0.6);
+  animation: ember-rise var(--rise, 3.5s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+@keyframes ember-rise {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(var(--dx, 20px), -55vh) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 72% 65% at 50% 38%, transparent 0%, rgba(0, 0, 0, 0.72) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.wrap {
+  position: relative;
+  z-index: 4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem 2.5rem;
+  text-align: center;
+}
+
+.hero {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.4rem, 7.5vw, 4.25rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow:
+    0 0 22px rgba(255, 110, 0, 0.95),
+    0 0 48px rgba(255, 40, 0, 0.45),
+    0 4px 0 #7a1808;
+  line-height: 1.05;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  color: #ffcfa0;
+  opacity: 0.92;
+  letter-spacing: 0.02em;
+}
+
+.countdown-shell {
+  width: 100%;
+  max-width: 38rem;
+  padding: 1px;
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 140, 70, 0.55) 0%,
+    rgba(180, 50, 20, 0.35) 35%,
+    rgba(60, 15, 10, 0.6) 100%
+  );
+  box-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.35),
+    0 24px 48px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(255, 80, 0, 0.12);
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-radius: 21px;
+  overflow: hidden;
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+}
+
+.card {
+  position: relative;
+  padding: 1.4rem 0.85rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 6.5rem;
+}
+
+.card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  bottom: 18%;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 150, 90, 0.35) 20%,
+    rgba(255, 120, 60, 0.55) 50%,
+    rgba(255, 150, 90, 0.35) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 14px rgba(255, 100, 40, 0.35);
+}
+
+.card .num {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.5rem, 11vw, 3.65rem);
+  line-height: 1;
+  color: #fff;
+  text-shadow:
+    0 0 20px rgba(255, 150, 50, 0.55),
+    0 2px 0 rgba(120, 30, 0, 0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+.card .lbl {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #e8956a;
+  opacity: 0.95;
+}
+
+.done {
+  margin-top: 1.75rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #ffe08a;
+  text-shadow: 0 0 24px rgba(255, 200, 80, 0.75);
+  max-width: 22rem;
+}
+
+@media (max-width: 520px) {
+  .countdown {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card:nth-child(2)::after {
+    display: none;
+  }
+
+  .card:nth-child(3)::before,
+  .card:nth-child(4)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 130, 70, 0.4) 50%,
+      transparent
+    );
+  }
+
+  .card .num {
+    font-size: clamp(2.75rem, 14vw, 3.4rem);
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contagem — 15 de abril</title>
+  <link rel="icon" type="image/webp" href="1403087474938347580.webp" sizes="any" />
+  <link rel="apple-touch-icon" href="1403087474938347580.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="inferno" aria-hidden="true">
+    <div class="inferno__orbs">
+      <span class="orb orb--1"></span>
+      <span class="orb orb--2"></span>
+      <span class="orb orb--3"></span>
+    </div>
+    <div class="inferno__heat"></div>
+    <div class="flames flames--back" id="flames-back"></div>
+    <div class="flames flames--front" id="flames"></div>
+    <div class="sparks sparks--a"></div>
+    <div class="sparks sparks--b"></div>
+    <div class="embers" id="embers"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <main class="wrap">
+    <header class="hero">
+      <h1>Contagem regressiva para o 15 de abril</h1>
+      <p class="subtitle">Contagem em tempo real no seu fuso horário</p>
+    </header>
+
+    <div class="countdown-shell">
+      <div class="countdown" id="countdown" role="timer" aria-live="polite">
+        <div class="card"><span class="num" id="d">—</span><span class="lbl">Dias</span></div>
+        <div class="card"><span class="num" id="h">—</span><span class="lbl">Horas</span></div>
+        <div class="card"><span class="num" id="m">—</span><span class="lbl">Min</span></div>
+        <div class="card"><span class="num" id="s">—</span><span class="lbl">Seg</span></div>
+      </div>
+    </div>
+    <p class="done" id="done" hidden>Chegou o dia 15 de abril.</p>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
